@@ -21,7 +21,7 @@ namespace dosEvAPI.Repositories
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string query = "SELECT ID, nombre, descripcion, logo, contacto, idOrganizador FROM dbo.Patrocinadores";
+                string query = "SELECT ID, nombre, descripcion, logo, contacto, idOrganizador FROM Patrocinadores";
                 using (var command = new SqlCommand(query, connection))
                 {
                     using (var reader = await command.ExecuteReaderAsync())

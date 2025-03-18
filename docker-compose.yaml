@@ -1,8 +1,8 @@
 
 version: '3.4'
-
+#network conecta db api
 networks:
-  backend:
+  backendd:
     driver: bridge
 
 volumes:
@@ -16,7 +16,7 @@ services:
     ports:
       - "1433:1433"  
     networks:
-      - backend
+      - backendd
     volumes:
       - sqlserver-data:/var/opt/mssql 
     environment:
@@ -30,18 +30,17 @@ services:
 
   api:
     container_name: contenedorAPI
-    image: guillermocarrion/reto2-api:05
+    image: reto2_api:1.0  
     build:
       context: .
       dockerfile: Dockerfile  
     ports:
       - "8888:80" 
     networks:
-      - backend
+      - backendd
     depends_on:
       bbdd:
         condition: service_healthy
     environment:
       ASPNETCORE_HTTP_PORTS: "80"
       ConnectionStrings__DB: "Server=contenedorBD,1433;Database=dosEvBack;User Id=sa;Password=pUt0d0cK3R!;TrustServerCertificate=True"
-

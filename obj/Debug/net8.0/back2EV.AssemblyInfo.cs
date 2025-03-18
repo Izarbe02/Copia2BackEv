@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("back2EV")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+46cb7d7514a01de33e92d3260e7c946e19817870")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+be9d5aabf9d5a4e6f44d4ce931a737242f331cbe")]
 [assembly: System.Reflection.AssemblyProductAttribute("back2EV")]
 [assembly: System.Reflection.AssemblyTitleAttribute("back2EV")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
