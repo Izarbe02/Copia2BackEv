@@ -1,0 +1,47 @@
+
+version: '3.4'
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  sqlserver-data:
+    driver: local
+
+services:
+  bbdd:
+    container_name: contenedorBD
+    image: mcr.microsoft.com/mssql/server:2022-CU11-ubuntu-20.04  
+    ports:
+      - "1433:1433"  
+    networks:
+      - backend
+    volumes:
+      - sqlserver-data:/var/opt/mssql 
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "pUt0d0cK3R!"
+    healthcheck:
+      test: ["CMD", "bash", "-c", "until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'pUt0d0cK3R!' -Q 'SELECT 1' &>/dev/null; do sleep 1; done"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+
+  api:
+    container_name: contenedorAPI
+    image: guillermocarrion/reto2-api:05
+    build:
+      context: .
+      dockerfile: Dockerfile  
+    ports:
+      - "8888:80" 
+    networks:
+      - backend
+    depends_on:
+      bbdd:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_HTTP_PORTS: "80"
+      ConnectionStrings__DB: "Server=contenedorBD,1433;Database=dosEvBack;User Id=sa;Password=pUt0d0cK3R!;TrustServerCertificate=True"
+
